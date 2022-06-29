@@ -1,6 +1,8 @@
 import './App.css';
 import {useState} from "react";
 import dummyData from "./dummy-data";
+import {CharacterList} from "./components/CharacterList";
+
 
 function App() {
     const [characters, setCharacters] = useState(dummyData);
@@ -15,6 +17,7 @@ function App() {
         <main>
             <section>
                 {/*    star wars characters */}
+                <CharacterList characters={characters}/>
             </section>
         </main>
     </div>
