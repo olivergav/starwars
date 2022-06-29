@@ -1,33 +1,12 @@
 import './App.css';
-import {useEffect, useState} from "react";
-import dummyData from "./dummy-data";
 import {CharacterList} from "./components/CharacterList";
 import {endpoint} from "./components/endpoint";
+import useFetch from "./components/hooks/useFetch";
 
+const formatData = (response) => response?.characters || []
 
 function App() {
-    const [characters, setCharacters] = useState(dummyData);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null)
-
-    useEffect(() => {
-        console.log('Fetching');
-
-        setLoading(true);
-        setError(null);
-        setCharacters([]);
-
-        fetch(`${endpoint}/characters`)
-            .then((response) => response.json())
-            .then((response) => {
-                setCharacters(response.characters);
-            })
-            .catch((error) => {
-                setError(error);
-            }).finally(() => {
-                setLoading(false);
-            })
-    }, [])
+    const [characters, loading, error] = useFetch(endpoint + '/characters', formatData())
 
 
     return (
